@@ -85,13 +85,16 @@ class _CupertinoControlsState extends State<CupertinoControls>
     final barHeight = orientation == Orientation.portrait ? 30.0 : 47.0;
     final buttonPadding = orientation == Orientation.portrait ? 16.0 : 24.0;
 
-    return MouseRegion(
-      onHover: (_) => _cancelAndRestartTimer(),
-      child: GestureDetector(
-        onTap: () => _cancelAndRestartTimer(),
-        child: AbsorbPointer(
-          absorbing: notifier.hideStuff,
-          child: Stack(
+
+    debugPrint('_displayBufferingIndicator = $_displayBufferingIndicator');
+    // return MouseRegion(
+    //   onHover: (_) => _cancelAndRestartTimer(),
+      // child: GestureDetector(
+      //   onTap: () => _cancelAndRestartTimer(),
+        // child: AbsorbPointer(
+        //   absorbing: notifier.hideStuff,
+          child:
+    return Stack(
             children: [
               if (_displayBufferingIndicator)
                 const Center(
@@ -121,10 +124,10 @@ class _CupertinoControlsState extends State<CupertinoControls>
                 ],
               ),
             ],
-          ),
-        ),
-      ),
-    );
+          );
+        // ),
+      // ),
+    // );
   }
 
   @override
@@ -349,17 +352,23 @@ class _CupertinoControlsState extends State<CupertinoControls>
     final bool isFinished = _latestValue.position >= _latestValue.duration;
     final bool showPlayButton =
         widget.showPlayButton && !_latestValue.isPlaying && !_dragging;
+    debugPrint('widget.showPlayButton = ${widget.showPlayButton} _latestValue.isPlaying = ${_latestValue.isPlaying} _dragging = $_dragging showPlayButton = ${widget.showPlayButton && !_latestValue.isPlaying && !_dragging}');
 
-    return GestureDetector(
-      onTap: _latestValue.isPlaying
-          ? _cancelAndRestartTimer
-          : () {
-              _hideTimer?.cancel();
-
-              setState(() {
-                notifier.hideStuff = false;
-              });
-            },
+    return VideoPlayerGestures(
+      videoPlayerController: chewieController.videoPlayerController,
+      enableDrag: chewieController.isFullScreen,
+      onDoubleClick: () {
+        _playPause();
+      },
+      onClick: () {
+        if (notifier.hideStuff == false) {
+          setState(() {
+            notifier.hideStuff = true;
+          });
+        } else {
+          _cancelAndRestartTimer();
+        }
+      },
       child: CenterPlayButton(
         backgroundColor: widget.backgroundColor,
         iconColor: widget.iconColor,

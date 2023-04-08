@@ -9,7 +9,6 @@ class AdaptiveControls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (Theme.of(context).platform) {
-      case TargetPlatform.android:
       case TargetPlatform.fuchsia:
         return const MaterialControls();
 
@@ -18,6 +17,7 @@ class AdaptiveControls extends StatelessWidget {
       case TargetPlatform.linux:
         return const MaterialDesktopControls();
 
+      case TargetPlatform.android:
       case TargetPlatform.iOS:
         return const CupertinoControls(
           backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),

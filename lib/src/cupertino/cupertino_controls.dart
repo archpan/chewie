@@ -12,6 +12,7 @@ import 'package:chewie/src/helpers/utils.dart';
 import 'package:chewie/src/models/option_item.dart';
 import 'package:chewie/src/models/subtitle_model.dart';
 import 'package:chewie/src/notifiers/index.dart';
+import 'package:chewie/src/video_player_gestures.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -614,17 +615,17 @@ class _CupertinoControlsState extends State<CupertinoControls>
       ),
       child: Row(
         children: <Widget>[
-          if (chewieController.allowFullScreen)
-            _buildExpandButton(
+          if (chewieController.allowMuting)
+            _buildMuteButton(
+              controller,
               backgroundColor,
               iconColor,
               barHeight,
               buttonPadding,
             ),
           const Spacer(),
-          if (chewieController.allowMuting)
-            _buildMuteButton(
-              controller,
+          if (chewieController.allowFullScreen)
+            _buildExpandButton(
               backgroundColor,
               iconColor,
               barHeight,

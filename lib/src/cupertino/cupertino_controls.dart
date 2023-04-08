@@ -87,7 +87,6 @@ class _CupertinoControlsState extends State<CupertinoControls>
     final buttonPadding = orientation == Orientation.portrait ? 16.0 : 24.0;
 
 
-    debugPrint('_displayBufferingIndicator = $_displayBufferingIndicator');
     // return MouseRegion(
     //   onHover: (_) => _cancelAndRestartTimer(),
       // child: GestureDetector(
@@ -353,8 +352,6 @@ class _CupertinoControlsState extends State<CupertinoControls>
     final bool isFinished = _latestValue.position >= _latestValue.duration;
     final bool showPlayButton =
         widget.showPlayButton && !_latestValue.isPlaying && !_dragging;
-    debugPrint('widget.showPlayButton = ${widget.showPlayButton} _latestValue.isPlaying = ${_latestValue.isPlaying} _dragging = $_dragging showPlayButton = ${widget.showPlayButton && !_latestValue.isPlaying && !_dragging}');
-
     return VideoPlayerGestures(
       videoPlayerController: chewieController.videoPlayerController,
       enableDrag: chewieController.isFullScreen,
